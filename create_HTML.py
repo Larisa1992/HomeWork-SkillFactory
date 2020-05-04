@@ -76,7 +76,8 @@ class Tag(TopLevelTag):
             else:
                 return "<{tag}{attrs}>{text}</{tag}>".format(tag=self.tag, attrs=attrs, text=self.text)
 
-# "test.html"
+# для тестирования
+# для записи в файл вместо output=None прописать output="test.html"
 if __name__ == "__main__":
     with HTML(output = None) as doc:
         with TopLevelTag("head") as head:
