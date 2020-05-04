@@ -22,12 +22,7 @@ class HTML:
         self.children.append(other)
         return self
 
-    def __exit__(self, type, value, traceback):
-        # result = f"<{self.tag}>"
-        # for inx, child in enumerate(self.children, 1):
-        #     result += "\n" + (" " * inx) + str(child)
-        # result += f"\n</{self.tag}>"
-        
+    def __exit__(self, type, value, traceback):       
         if(self.output is None):
             print(self)
         else:
@@ -40,10 +35,6 @@ class TopLevelTag(HTML):
         self.children = []
     
     def __exit__(self, type, value, traceback): pass
-        # res = "<%s>" % self.tag
-        # for child in self.children:
-        #     res += str(child)
-        # res += "</%s>" % self.tag
         
 # Объекта класса Tag могут быть непарные или быть парные и содержать текст внутри себя.
 class Tag(TopLevelTag):
@@ -68,10 +59,12 @@ class Tag(TopLevelTag):
         attrs = []                      #список атрибутов в нужном формате ключ = "значение"
         for attribute, value in self.attributes.items():
             attrs.append('%s="%s"' % (attribute, value))
+        if attrs:
+            attrs.insert(0, "") #добавляю отсутп между именем тэга и атрибутами
         attrs = " ".join(attrs)         #делаем из списка валидную строку с атрибутами тэга (пример:  attrs - id="heading-text" data-bind="not-above")
 
         if self.children:
-            opening = "<{tag} {attrs}>\n".format(tag=self.tag, attrs=attrs)
+            opening = "<{tag}{attrs}>\n".format(tag=self.tag, attrs=attrs)
             internal = "%s" % self.text
             for child in self.children:
                 internal += str(child)
@@ -79,9 +72,9 @@ class Tag(TopLevelTag):
             return opening + internal + ending
         else:
             if self.is_single:
-                return "\n<{tag} {attrs}/>".format(tag=self.tag, attrs=attrs)
+                return "\n<{tag}{attrs}/>".format(tag=self.tag, attrs=attrs)
             else:
-                return "<{tag} {attrs}>{text}</{tag}>".format(tag=self.tag, attrs=attrs, text=self.text)
+                return "<{tag}{attrs}>{text}</{tag}>".format(tag=self.tag, attrs=attrs, text=self.text)
 
 # "test.html"
 if __name__ == "__main__":
