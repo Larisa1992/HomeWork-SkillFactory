@@ -41,12 +41,14 @@ class Seconds():
         return wrapper
 
 # проверяю на функции с одним аргументом: f(n)
+# после декорирования, функция становится объектом класса
 @Seconds()
 def ff(n):
     for j in range(1000000):
         j + n
 
 print('задание со звездочкой')
+# вызваем объект класса, срабатывает метод __call__(...)
 ff(7)
 
 # ЗАДАНИЕ С ДВУМЯ ЗВЕЗДОЧКАМИ
@@ -61,9 +63,10 @@ class Decorator():
         return wrapper
 
     def __enter__(self):
-        self.start = time.time()
+        self.start = time.time() # на входу в контекстный менеджер фиксируем стартовое время
         return self
-
+    
+# на выходе из контекстного менеджера вычисляем среднее время
     def __exit__(self, type, value, traceback):
         self.end = time.time()
         self.avg_time = (self.end - self.start)/self.num_runs
