@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="./style.css">
+<h1 class="countdown-title">Countdown Clock</h1>
+<section class="countdown">
+  <div class="countdown-number">
+    <p class="minutes countdown-time"></p>
+    <p class="countdown-text">Minutes</p>
+  </div>
+  <div class="countdown-number">
+    <p class="seconds countdown-time"></p>
+    <p class="countdown-text">Seconds</p>
+  </div>
+</section>
+
+<div>
+  <button class="plus">plus</button>
+  <button class="minus">minus</button>
+  <button class="start">start</button>
+  <button class="stop">stop</button>
+  <button class="reset">reset</button>
+</div>
+
+<p>
+  к-во минут от 0 до 59 
+  <input type="number" name="inputmin" min="0" max="59" size="2" value="0" id="arrow">
+  <label for="inputmin">Minutes</label>
+</p>
+<p>
+  к-во секунд от 0 до 59
+  <input type="number" name="inputsec" min="0" max="59" size="2" value="0" id="arrow">
+  <label for="inputsec">Seconds</label>
+</p>
+
+<div class="message">
+</div>
+<script src="./script.js"></script>
